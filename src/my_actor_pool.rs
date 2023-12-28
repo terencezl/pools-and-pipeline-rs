@@ -1,11 +1,12 @@
 use tokio::sync::oneshot;
 
+enum ActorMessage {
+    GetUniqueId { respond_to: oneshot::Sender<u32> },
+}
+
 struct MyActor {
     receiver: async_channel::Receiver<ActorMessage>,
     next_id: u32,
-}
-enum ActorMessage {
-    GetUniqueId { respond_to: oneshot::Sender<u32> },
 }
 
 impl MyActor {

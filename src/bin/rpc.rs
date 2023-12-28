@@ -36,7 +36,7 @@ async fn main() {
 
         let pool = pool.clone();
         join_set.spawn(async move {
-            let _permit = permit;  // own the permit
+            let _permit = permit; // own the permit
 
             // let t = tokio::time::Instant::now();
             // println!("{i} starting...");
