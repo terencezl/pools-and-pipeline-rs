@@ -13,13 +13,6 @@ async fn main() {
     // attach CTRL+C handler
     let interrupt_indicator = InterruptIndicator::new();
 
-    // make pretty progress bar
-    let pb = ProgressBar::new(N_TASKS);
-    let sty = ProgressStyle::with_template(
-        "{spinner:.cyan} [{bar:40.cyan/blue}] {pos:>7}/{len:7} [{elapsed_precise}<{eta_precise} {per_sec:.green}] {msg}"
-    ).unwrap().progress_chars("#>-");
-    pb.set_style(sty);
-
     // create pool
     let pool = Arc::new(RwLock::new(MyActorStreamerPool::new(4)));
 
@@ -44,6 +37,14 @@ async fn main() {
     });
 
     // wait for all tasks to finish
+
+    // make pretty progress bar
+    let pb = ProgressBar::new(N_TASKS);
+    let sty = ProgressStyle::with_template(
+        "{spinner:.cyan} [{bar:40.cyan/blue}] {pos:>7}/{len:7} [{elapsed_precise}<{eta_precise} {per_sec:.green}] {msg}"
+    ).unwrap().progress_chars("#>-");
+    pb.set_style(sty);
+
     let mut res_all = vec![];
     loop {
         let t = tokio::time::Instant::now();
