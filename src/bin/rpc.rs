@@ -17,6 +17,7 @@ async fn main() {
     // submitter & receiver comm
     let (sender, mut receiver) = tokio::sync::mpsc::channel(4);
 
+    // submit tasks
     tokio::spawn(async move {
         // concurrency control
         let sem = Arc::new(Semaphore::new(4));
